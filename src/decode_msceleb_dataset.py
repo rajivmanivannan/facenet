@@ -1,4 +1,4 @@
-"""Decode the MsCelebV1 dataset in TSV (tab separated values) format downloaded from
+"""Decode the MsCelebV1 datasets in TSV (tab separated values) format downloaded from
 https://www.microsoft.com/en-us/research/project/ms-celeb-1m-challenge-recognizing-one-million-celebrities-real-world/
 """
 # MIT License
@@ -78,7 +78,7 @@ def main(args):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('output_dir', type=str, help='Output base directory for the image dataset')
+    parser.add_argument('output_dir', type=str, help='Output base directory for the image datasets')
     parser.add_argument('tsv_files', type=argparse.FileType('r'), nargs='+', help='Input TSV file name(s)')
     parser.add_argument('--size', type=int, help='Images are resized to the given size')
     parser.add_argument('--output_format', type=str, help='Format of the output images', default='png', choices=['png', 'jpg'])

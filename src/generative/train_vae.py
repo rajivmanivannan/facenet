@@ -51,7 +51,7 @@ def main(args):
 
     subdir = datetime.strftime(datetime.now(), '%Y%m%d-%H%M%S')
     model_dir = os.path.join(os.path.expanduser(args.models_base_dir), subdir)
-    if not os.path.isdir(model_dir):  # Create the model directory if it doesn't exist
+    if not os.path.isdir(model_dir):  # Create the models directory if it doesn't exist
         os.makedirs(model_dir)
     log_file_name = os.path.join(model_dir, 'logs.h5')
     
@@ -146,7 +146,7 @@ def main(args):
         learning_rate = tf.train.exponential_decay(args.initial_learning_rate, global_step,
             args.learning_rate_decay_steps, args.learning_rate_decay_factor, staircase=True)
         
-        # Calculate gradients and make sure not to include parameters for the perceptual loss model
+        # Calculate gradients and make sure not to include parameters for the perceptual loss models
         opt = tf.train.AdamOptimizer(learning_rate)
         grads = opt.compute_gradients(total_loss, var_list=get_variables_to_train())
         
@@ -173,9 +173,9 @@ def main(args):
             
             if args.reconstruction_loss_type=='PERCEPTUAL':
                 if not args.pretrained_model:
-                    raise ValueError('A pretrained model must be specified when using perceptual loss')
+                    raise ValueError('A pretrained models must be specified when using perceptual loss')
                 pretrained_model_exp = os.path.expanduser(args.pretrained_model)
-                print('Restoring pretrained model: %s' % pretrained_model_exp)
+                print('Restoring pretrained models: %s' % pretrained_model_exp)
                 facenet_saver.restore(sess, pretrained_model_exp)
           
             log = {
@@ -209,7 +209,7 @@ def main(args):
 
                 if save_state:
                     print('Saving checkpoint file')
-                    checkpoint_path = os.path.join(model_dir, 'model.ckpt')
+                    checkpoint_path = os.path.join(model_dir, 'models.ckpt')
                     saver.save(sess, checkpoint_path, global_step=step, write_meta_graph=False)
                     print('Saving log')
                     with h5py.File(log_file_name, 'w') as f:
@@ -245,7 +245,7 @@ def parse_arguments(argv):
     parser.add_argument('model_def', type=str,
         help='Model definition. Points to a module containing the definition of the inference graph.')
     parser.add_argument('pretrained_model', type=str,
-        help='Pretrained model to use to calculate features for perceptual loss.')
+        help='Pretrained models to use to calculate features for perceptual loss.')
     parser.add_argument('--models_base_dir', type=str,
         help='Directory where to write trained models and checkpoints.', default='~/vae')
     parser.add_argument('--loss_features', type=str,
@@ -256,12 +256,12 @@ def parse_arguments(argv):
     parser.add_argument('--max_nrof_steps', type=int,
         help='Number of steps to run.', default=50000)
     parser.add_argument('--save_every_n_steps', type=int,
-        help='Number of steps between storing of model checkpoint and log files', default=500)
+        help='Number of steps between storing of models checkpoint and log files', default=500)
     parser.add_argument('--batch_size', type=int,
         help='Number of images to process in a batch.', default=128)
     parser.add_argument('--input_image_size', type=int,
         help='Image size of input images (height, width) in pixels. If perceptual loss is used this ' 
-        + 'should be the input image size for the perceptual loss model', default=160)
+        + 'should be the input image size for the perceptual loss models', default=160)
     parser.add_argument('--latent_var_size', type=int,
         help='Dimensionality of the latent variable.', default=100)
     parser.add_argument('--initial_learning_rate', type=float,

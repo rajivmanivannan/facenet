@@ -178,7 +178,7 @@ def parse_arguments(argv):
     parser.add_argument('vae_checkpoint', type=str,
         help='Checkpoint file of a pre-trained variational autoencoder.')
     parser.add_argument('data_dir', type=str,
-        help='Path to the directory containing aligned face patches for the CelebA dataset.')
+        help='Path to the directory containing aligned face patches for the CelebA datasets.')
     parser.add_argument('annotations_filename', type=str,
         help='Path to the annotations file',
         default='/media/deep/datasets/CelebA/Anno/list_attr_celeba.txt')

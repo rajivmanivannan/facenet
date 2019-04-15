@@ -1,4 +1,4 @@
-"""Calculate filtering metrics for a dataset and store in a .hdf file.
+"""Calculate filtering metrics for a datasets and store in a .hdf file.
 """
 # MIT License
 # 
@@ -113,9 +113,9 @@ def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     
     parser.add_argument('dataset_dir', type=str,
-        help='Path to the directory containing aligned dataset.')
+        help='Path to the directory containing aligned datasets.')
     parser.add_argument('model_file', type=str,
-        help='File containing the frozen model in protobuf (.pb) format to use for feature extraction.')
+        help='File containing the frozen models in protobuf (.pb) format to use for feature extraction.')
     parser.add_argument('data_file_name', type=str,
         help='The name of the file to store filtering data in.')
     parser.add_argument('--image_size', type=int,

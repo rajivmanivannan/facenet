@@ -22,7 +22,7 @@
 
 """Modify attributes of images using attribute vectors calculated using
 'calculate_attribute_vectors.py'. Images are generated from latent variables of
-the CelebA dataset.
+the CelebA datasets.
 """
 from __future__ import absolute_import
 from __future__ import division

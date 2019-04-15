@@ -362,7 +362,7 @@ def split_dataset(dataset, split_ratio, min_nrof_images_per_class, mode):
     return train_set, test_set
 
 def load_model(model, input_map=None):
-    # Check if the model is a model directory (containing a metagraph and a checkpoint file)
+    # Check if the models is a models directory (containing a metagraph and a checkpoint file)
     #  or if it is a protobuf file with a frozen graph
     model_exp = os.path.expanduser(model)
     if (os.path.isfile(model_exp)):
@@ -385,9 +385,9 @@ def get_model_filenames(model_dir):
     files = os.listdir(model_dir)
     meta_files = [s for s in files if s.endswith('.meta')]
     if len(meta_files)==0:
-        raise ValueError('No meta file found in the model directory (%s)' % model_dir)
+        raise ValueError('No meta file found in the models directory (%s)' % model_dir)
     elif len(meta_files)>1:
-        raise ValueError('There should not be more than one meta file in the model directory (%s)' % model_dir)
+        raise ValueError('There should not be more than one meta file in the models directory (%s)' % model_dir)
     meta_file = meta_files[0]
     ckpt = tf.train.get_checkpoint_state(model_dir)
     if ckpt and ckpt.model_checkpoint_path:
@@ -397,7 +397,7 @@ def get_model_filenames(model_dir):
     meta_files = [s for s in files if '.ckpt' in s]
     max_step = -1
     for f in files:
-        step_str = re.match(r'(^model-[\w\- ]+.ckpt-(\d+))', f)
+        step_str = re.match(r'(^models-[\w\- ]+.ckpt-(\d+))', f)
         if step_str is not None and len(step_str.groups())>=2:
             step = int(step_str.groups()[1])
             if step > max_step:

@@ -1,5 +1,5 @@
-"""Imports a model metagraph and checkpoint file, converts the variables to constants
-and exports the model as a graphdef protobuf
+"""Imports a models metagraph and checkpoint file, converts the variables to constants
+and exports the models as a graphdef protobuf
 """
 # MIT License
 # 
@@ -38,7 +38,7 @@ from six.moves import xrange  # @UnresolvedImport
 def main(args):
     with tf.Graph().as_default():
         with tf.Session() as sess:
-            # Load the model metagraph and checkpoint
+            # Load the models metagraph and checkpoint
             print('Model directory: %s' % args.model_dir)
             meta_file, ckpt_file = facenet.get_model_filenames(os.path.expanduser(args.model_dir))
             
@@ -94,7 +94,7 @@ def parse_arguments(argv):
     parser = argparse.ArgumentParser()
     
     parser.add_argument('model_dir', type=str, 
-        help='Directory containing the metagraph (.meta) file and the checkpoint (ckpt) file containing model parameters')
+        help='Directory containing the metagraph (.meta) file and the checkpoint (ckpt) file containing models parameters')
     parser.add_argument('output_file', type=str, 
         help='Filename for the exported graphdef protobuf (.pb)')
     return parser.parse_args(argv)

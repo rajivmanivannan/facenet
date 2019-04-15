@@ -54,7 +54,7 @@ def main(args):
     if not os.path.isdir(log_dir):  # Create the log directory if it doesn't exist
         os.makedirs(log_dir)
     model_dir = os.path.join(os.path.expanduser(args.models_base_dir), subdir)
-    if not os.path.isdir(model_dir):  # Create the model directory if it doesn't exist
+    if not os.path.isdir(model_dir):  # Create the models directory if it doesn't exist
         os.makedirs(model_dir)
 
     stat_file_name = os.path.join(log_dir, 'stat.h5')
@@ -85,7 +85,7 @@ def main(args):
     pretrained_model = None
     if args.pretrained_model:
         pretrained_model = os.path.expanduser(args.pretrained_model)
-        print('Pre-trained model: %s' % pretrained_model)
+        print('Pre-trained models: %s' % pretrained_model)
     
     if args.lfw_dir:
         print('LFW directory: %s' % args.lfw_dir)
@@ -176,7 +176,7 @@ def main(args):
         regularization_losses = tf.get_collection(tf.GraphKeys.REGULARIZATION_LOSSES)
         total_loss = tf.add_n([cross_entropy_mean] + regularization_losses, name='total_loss')
 
-        # Build a Graph that trains the model with one batch of examples and updates the model parameters
+        # Build a Graph that trains the models with one batch of examples and updates the models parameters
         train_op = facenet.train(total_loss, global_step, args.optimizer, 
             learning_rate, args.moving_average_decay, tf.global_variables(), args.log_histograms)
         
@@ -198,7 +198,7 @@ def main(args):
         with sess.as_default():
 
             if pretrained_model:
-                print('Restoring pretrained model: %s' % pretrained_model)
+                print('Restoring pretrained models: %s' % pretrained_model)
                 saver.restore(sess, pretrained_model)
 
             # Training and validation loop
@@ -445,9 +445,9 @@ def evaluate(sess, enqueue_op, image_paths_placeholder, labels_placeholder, phas
     # Add validation loss and accuracy to summary
     summary = tf.Summary()
     #pylint: disable=maybe-no-member
-    summary.value.add(tag='lfw/accuracy', simple_value=np.mean(accuracy))
-    summary.value.add(tag='lfw/val_rate', simple_value=val)
-    summary.value.add(tag='time/lfw', simple_value=lfw_time)
+    summary.value.add(tag='train/accuracy', simple_value=np.mean(accuracy))
+    summary.value.add(tag='train/val_rate', simple_value=val)
+    summary.value.add(tag='time/train', simple_value=lfw_time)
     summary_writer.add_summary(summary, step)
     with open(os.path.join(log_dir,'lfw_result.txt'),'at') as f:
         f.write('%d\t%.5f\t%.5f\n' % (step, np.mean(accuracy), val))
@@ -455,14 +455,14 @@ def evaluate(sess, enqueue_op, image_paths_placeholder, labels_placeholder, phas
     stat['lfw_valrate'][epoch-1] = val
 
 def save_variables_and_metagraph(sess, saver, summary_writer, model_dir, model_name, step):
-    # Save the model checkpoint
+    # Save the models checkpoint
     print('Saving variables')
     start_time = time.time()
-    checkpoint_path = os.path.join(model_dir, 'model-%s.ckpt' % model_name)
+    checkpoint_path = os.path.join(model_dir, 'models-%s.ckpt' % model_name)
     saver.save(sess, checkpoint_path, global_step=step, write_meta_graph=False)
     save_time_variables = time.time() - start_time
     print('Variables saved in %.2f seconds' % save_time_variables)
-    metagraph_filename = os.path.join(model_dir, 'model-%s.meta' % model_name)
+    metagraph_filename = os.path.join(model_dir, 'models-%s.meta' % model_name)
     save_time_metagraph = 0  
     if not os.path.exists(metagraph_filename):
         print('Saving metagraph')
@@ -487,7 +487,7 @@ def parse_arguments(argv):
     parser.add_argument('--gpu_memory_fraction', type=float,
         help='Upper bound on the amount of GPU memory that will be used by the process.', default=1.0)
     parser.add_argument('--pretrained_model', type=str,
-        help='Load a pretrained model before training starts.')
+        help='Load a pretrained models before training starts.')
     parser.add_argument('--data_dir', type=str,
         help='Path to the data directory containing aligned face patches.',
         default='~/datasets/casia/casia_maxpy_mtcnnalign_182_160')
@@ -546,7 +546,7 @@ def parse_arguments(argv):
     parser.add_argument('--learning_rate_schedule_file', type=str,
         help='File containing the learning rate schedule that is used when learning_rate is set to to -1.', default='data/learning_rate_schedule.txt')
     parser.add_argument('--filter_filename', type=str,
-        help='File containing image data used for dataset filtering', default='')
+        help='File containing image data used for datasets filtering', default='')
     parser.add_argument('--filter_percentile', type=float,
         help='Keep only the percentile images closed to its class center', default=100.0)
     parser.add_argument('--filter_min_nrof_images_per_class', type=int,
@@ -554,7 +554,7 @@ def parse_arguments(argv):
     parser.add_argument('--validate_every_n_epochs', type=int,
         help='Number of epoch between validation', default=5)
     parser.add_argument('--validation_set_split_ratio', type=float,
-        help='The ratio of the total dataset to use for validation', default=0.0)
+        help='The ratio of the total datasets to use for validation', default=0.0)
     parser.add_argument('--min_nrof_val_images_per_class', type=float,
         help='Classes with fewer images will be removed from the validation set', default=0)
  

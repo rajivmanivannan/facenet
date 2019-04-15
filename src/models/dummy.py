@@ -1,4 +1,4 @@
-"""Dummy model used only for testing
+"""Dummy models used only for testing
 """
 # MIT License
 # 

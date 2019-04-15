@@ -1,6 +1,6 @@
-"""Validate a face recognizer on the "Labeled Faces in the Wild" dataset (http://vis-www.cs.umass.edu/lfw/).
-Embeddings are calculated using the pairs from http://vis-www.cs.umass.edu/lfw/pairs.txt and the ROC curve
-is calculated and plotted. Both the model metagraph and the model parameters need to exist
+"""Validate a face recognizer on the "Labeled Faces in the Wild" datasets (http://vis-www.cs.umass.edu/train/).
+Embeddings are calculated using the pairs from http://vis-www.cs.umass.edu/train/pairs.txt and the ROC curve
+is calculated and plotted. Both the models metagraph and the models parameters need to exist
 in the same directory, and the metagraph should have the extension '.meta'.
 """
 # MIT License
@@ -68,7 +68,7 @@ def main(args):
             eval_enqueue_op = eval_input_queue.enqueue_many([image_paths_placeholder, labels_placeholder, control_placeholder], name='eval_enqueue_op')
             image_batch, label_batch = facenet.create_input_pipeline(eval_input_queue, image_size, nrof_preprocess_threads, batch_size_placeholder)
      
-            # Load the model
+            # Load the models
             input_map = {'image_batch': image_batch, 'label_batch': label_batch, 'phase_train': phase_train_placeholder}
             facenet.load_model(args.model, input_map=input_map)
 
@@ -142,8 +142,8 @@ def parse_arguments(argv):
         help='Path to the data directory containing aligned LFW face patches.')
     parser.add_argument('--lfw_batch_size', type=int,
         help='Number of images to process in a batch in the LFW test set.', default=100)
-    parser.add_argument('model', type=str, 
-        help='Could be either a directory containing the meta_file and ckpt_file or a model protobuf (.pb) file')
+    parser.add_argument('models', type=str,
+        help='Could be either a directory containing the meta_file and ckpt_file or a models protobuf (.pb) file')
     parser.add_argument('--image_size', type=int,
         help='Image size (height, width) in pixels.', default=160)
     parser.add_argument('--lfw_pairs', type=str,

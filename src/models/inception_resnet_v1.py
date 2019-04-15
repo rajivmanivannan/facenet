@@ -154,7 +154,7 @@ def inception_resnet_v1(inputs, is_training=True,
                         bottleneck_layer_size=128,
                         reuse=None, 
                         scope='InceptionResnetV1'):
-    """Creates the Inception Resnet V1 model.
+    """Creates the Inception Resnet V1 models.
     Args:
       inputs: a 4-D tensor of size [batch_size, height, width, 3].
       num_classes: number of predicted classes.
@@ -164,8 +164,8 @@ def inception_resnet_v1(inputs, is_training=True,
         able to reuse 'scope' must be given.
       scope: Optional variable_scope.
     Returns:
-      logits: the logits outputs of the model.
-      end_points: the set of end_points from the inception model.
+      logits: the logits outputs of the models.
+      end_points: the set of end_points from the inception models.
     """
     end_points = {}
   
