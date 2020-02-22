@@ -1,0 +1,10 @@
+version: '3'
+services:
+
+  cli:
+    build:
+      context: .
+    image: rajiv-facenet
+    command: ["sh"]
+    volumes:
+      - .:/app
